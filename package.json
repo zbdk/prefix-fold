@@ -1,0 +1,133 @@
+{
+  "name": "prefix-fold",
+  "displayName": "PrefixFold",
+  "description": "ファイル名の共通プレフィックスに基づいてファイルを仮想フォルダとしてグループ化し、TreeViewパネルで表示するVSCode拡張機能",
+  "version": "0.0.1",
+  "publisher": "prefix-fold",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:prefixFoldView"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "prefixFoldContainer",
+          "title": "PrefixFold",
+          "icon": "$(folder)"
+        }
+      ]
+    },
+    "views": {
+      "prefixFoldContainer": [
+        {
+          "id": "prefixFoldView",
+          "name": "PrefixFold",
+          "icon": "$(folder)",
+          "contextualTitle": "PrefixFold"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "prefixFold.showInPrefixFold",
+        "title": "PrefixFoldで表示"
+      },
+      {
+        "command": "prefixFold.revealInExplorer",
+        "title": "エクスプローラーで表示"
+      },
+      {
+        "command": "prefixFold.refresh",
+        "title": "PrefixFold: 更新",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "prefixFold.collapseAll",
+        "title": "PrefixFold: すべて折りたたむ",
+        "icon": "$(collapse-all)"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "prefixFold.showInPrefixFold",
+          "when": "explorerResourceIsFolder",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "prefixFold.revealInExplorer",
+          "when": "view == prefixFoldView && viewItem =~ /^(file|directory|virtualFolder)$/",
+          "group": "navigation"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "prefixFold.refresh",
+          "when": "view == prefixFoldView",
+          "group": "navigation"
+        },
+        {
+          "command": "prefixFold.collapseAll",
+          "when": "view == prefixFoldView",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PrefixFold",
+      "properties": {
+        "prefixFold.delimiters": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": ["-"],
+          "description": "プレフィックス区切り文字の配列"
+        },
+        "prefixFold.minGroupSize": {
+          "type": "number",
+          "default": 2,
+          "minimum": 1,
+          "description": "プレフィックスグループとして表示する最小ファイル数"
+        },
+        "prefixFold.excludePatterns": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "解析対象外とするファイル/ディレクトリのglobパターン"
+        },
+        "prefixFold.camelCaseSplit": {
+          "type": "boolean",
+          "default": false,
+          "description": "キャメルケース境界を区切りポイントとして使用する"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "@types/vscode": "^1.85.0",
+    "fast-check": "^3.15.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.2.0"
+  }
+}
