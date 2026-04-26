@@ -1,0 +1,14 @@
+.git/**
+.github/**
+.gitignore
+.kiro/**
+node_modules/**
+src/**
+test/**
+*.ts
+*.map
+*.vsix
+tsconfig.json
+vitest.config.ts
+package-lock.json
+.vscodeignore
