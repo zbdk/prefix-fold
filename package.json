@@ -2,7 +2,7 @@
   "name": "prefix-fold",
   "displayName": "PrefixFold",
   "description": "ファイル名の共通プレフィックスに基づいてファイルを仮想フォルダとしてグループ化し、TreeViewパネルで表示するVSCode拡張機能",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "prefix-fold",
   "engines": {
     "vscode": "^1.85.0"
